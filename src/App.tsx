@@ -287,22 +287,10 @@ export default function App() {
           {/* Desktop Navigation Link Hierarchy */}
           <nav className="hidden md:flex items-center space-x-8 font-sans text-xs uppercase tracking-widest font-semibold" id="desktop-nav">
             <a href="#hero" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">Home</a>
-            <a href="#story" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">Our Story</a>
+            <a href="#couple" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">The Couple</a>
             <a href="#events" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">Events</a>
-            <a href="#gallery" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">Gallery</a>
-            <a href="#registry" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">Registry</a>
+            <a href="#gallery" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">Venue Gallery</a>
           </nav>
-
-          {/* Direct Registry Quick Action Button */}
-          <div className="hidden md:flex items-center gap-4">
-            <a 
-              href="#registry" 
-              className="px-5 py-2 rounded-full border border-[#556B2F]/60 hover:border-[#556B2F] dark:border-[#A9DFBF]/60 dark:hover:border-[#A9DFBF] text-[#556B2F] dark:text-[#A9DFBF] hover:bg-[#556B2F]/5 dark:hover:bg-[#A9DFBF]/5 text-xs font-semibold uppercase tracking-widest transition-all duration-300"
-              id="registry-quick-btn"
-            >
-              Registry
-            </a>
-          </div>
 
           {/* Hamburger Menu Toggle for Mobile Screen Precision */}
           <button 
@@ -329,40 +317,25 @@ export default function App() {
               Home
             </a>
             <a 
-              href="#story" 
+              href="#couple" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] font-sans text-sm uppercase tracking-wider font-semibold"
             >
-              Our Story
+              The Couple
             </a>
             <a 
               href="#events" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] font-sans text-sm uppercase tracking-wider font-semibold"
             >
-              Events & Timeline
+              Events & Schedule
             </a>
             <a 
               href="#gallery" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] font-sans text-sm uppercase tracking-wider font-semibold"
             >
-              Photo Gallery
-            </a>
-            <a 
-              href="#registry" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] font-sans text-sm uppercase tracking-wider font-semibold"
-            >
-              Gift Registry
-            </a>
-            <hr className="border-stone-200 dark:border-stone-800" />
-            <a 
-              href="#registry" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-center bg-[#556B2F] hover:bg-[#435525] dark:bg-[#A9DFBF] dark:hover:bg-[#8EC5A2] text-white dark:text-stone-950 py-2.5 rounded-full font-semibold uppercase tracking-wider text-xs shadow"
-            >
-              Gift Registry
+              Venue Gallery
             </a>
           </nav>
         )}
@@ -510,9 +483,9 @@ export default function App() {
 
             {/* Downward Indicator */}
             <a 
-              href="#story" 
+              href="#couple" 
               className="inline-block mt-8 text-white/60 hover:text-white transition-colors duration-300 animate-bounce hover:scale-110"
-              aria-label="Scroll down to Couple and Story"
+              aria-label="Scroll down to Couple"
               id="scroll-indicator"
             >
               <ChevronLeft className="w-6 h-6 transform -rotate-90" />
@@ -520,23 +493,23 @@ export default function App() {
           </div>
         </section>
 
-        {/* 2. COUPLE & OUR STORY: Minimalist Couple Portraits and Romantic Timeline */}
+        {/* 2. COUPLE SECTION: Groom and Bride Profiles */}
         <section 
-          id="story" 
+          id="couple" 
           className="py-20 md:py-28 px-4 max-w-6xl mx-auto border-b border-stone-200/50 dark:border-stone-800/40"
         >
           {/* Section Eyebrow Header */}
           <div className="text-center mb-16 md:mb-20">
-            <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">With Love & Delight</span>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">Meet the Couple</h2>
+            <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">With Love & Joy</span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">The Happy Couple</h2>
             <div className="w-12 h-0.5 bg-[#556B2F] dark:bg-[#A9DFBF] mx-auto mt-4 rounded-full opacity-60" />
           </div>
 
-          {/* Couple Cards Layout - Optimized side-by-side display */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-start max-w-5xl mx-auto mb-24" id="couple-profiles">
+          {/* Couple Cards Layout - Clean & Minimalist */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-start max-w-4xl mx-auto" id="couple-profiles">
             
             {/* Groom Profile */}
-            <div className="flex flex-col items-center text-center p-6 bg-white dark:bg-[#181a19] rounded-2xl border border-stone-200/60 dark:border-stone-800 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div className="flex flex-col items-center text-center p-8 bg-white dark:bg-[#181a19] rounded-2xl border border-stone-200/60 dark:border-stone-800 shadow-sm transition-all duration-300 hover:shadow-md">
               <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-stone-100 dark:border-[#222523] shadow-inner mb-6 transition-transform duration-500 hover:scale-[1.03]">
                 <img 
                   src={weddingData.couple.groom.imageUrl} 
@@ -550,14 +523,10 @@ export default function App() {
               <p className="font-sans text-xs text-stone-500 dark:text-stone-400 mt-3 italic font-medium px-4">
                 {weddingData.couple.groom.parents}
               </p>
-              
-              <p className="font-sans text-sm text-stone-600 dark:text-stone-300 mt-4 leading-relaxed max-w-sm px-2">
-                {weddingData.couple.groom.description}
-              </p>
             </div>
 
             {/* Bride Profile */}
-            <div className="flex flex-col items-center text-center p-6 bg-white dark:bg-[#181a19] rounded-2xl border border-stone-200/60 dark:border-stone-800 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div className="flex flex-col items-center text-center p-8 bg-white dark:bg-[#181a19] rounded-2xl border border-stone-200/60 dark:border-stone-800 shadow-sm transition-all duration-300 hover:shadow-md">
               <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-stone-100 dark:border-[#222523] shadow-inner mb-6 transition-transform duration-500 hover:scale-[1.03]">
                 <img 
                   src={weddingData.couple.bride.imageUrl} 
@@ -571,57 +540,8 @@ export default function App() {
               <p className="font-sans text-xs text-stone-500 dark:text-stone-400 mt-3 italic font-medium px-4">
                 {weddingData.couple.bride.parents}
               </p>
-              
-              <p className="font-sans text-sm text-stone-600 dark:text-stone-300 mt-4 leading-relaxed max-w-sm px-2">
-                {weddingData.couple.bride.description}
-              </p>
             </div>
 
-          </div>
-
-          {/* Timeline Layout ("How We Met", "The Proposal", "The Big Day") */}
-          <div className="max-w-4xl mx-auto pt-8">
-            <div className="text-center mb-12">
-              <Heart className="w-5 h-5 text-rose-500 mx-auto fill-current animate-pulse mb-2" />
-              <h3 className="font-serif text-xl sm:text-2xl text-stone-800 dark:text-stone-200 italic font-light">Our Beautiful Journey</h3>
-            </div>
-
-            <div className="relative border-l border-stone-200 dark:border-stone-800 ml-4 md:mx-auto md:left-1/2 md:translate-x-[-0.5px]" id="story-timeline">
-              
-              {weddingData.story.map((item, index) => {
-                const isEven = index % 2 === 0;
-                return (
-                  <div key={item.id} className={`relative mb-16 md:mb-20 flex flex-col md:flex-row ${isEven ? 'md:flex-row-reverse' : ''} items-start`}>
-                    
-                    {/* Centered Timeline Circular Node Indicator */}
-                    <div className="absolute -left-4 md:left-1/2 md:-translate-x-1/2 w-8 h-8 rounded-full bg-[#EAECE6] dark:bg-[#1E2522] border-2 border-[#556B2F] dark:border-[#A9DFBF] flex items-center justify-center z-10 shadow-sm">
-                      <Heart className="w-3.5 h-3.5 text-[#556B2F] dark:text-[#A9DFBF] fill-current" />
-                    </div>
-
-                    {/* Left/Right Text Detail Cards */}
-                    <div className={`w-full md:w-[45%] pl-8 md:pl-0 ${isEven ? 'md:pr-12 md:text-right' : 'md:pl-12 text-left'}`}>
-                      <div className="bg-white dark:bg-[#181a19] p-6 rounded-2xl border border-stone-200/60 dark:border-stone-800 shadow-sm transition-all duration-300 hover:shadow-md">
-                        <span className="font-sans text-[11px] uppercase tracking-widest font-semibold text-amber-600 dark:text-amber-400">{item.date}</span>
-                        <h4 className="font-serif text-xl text-stone-800 dark:text-stone-100 font-medium mt-1 mb-3">{item.title}</h4>
-                        
-                        {/* Rounded Visual image frame inside story */}
-                        <div className="w-full h-40 rounded-xl overflow-hidden mb-4 shadow-sm">
-                          <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-                        </div>
-
-                        <p className="font-sans text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Empty placeholder for symmetry on larger screens */}
-                    <div className="hidden md:block w-[45%]" />
-                  </div>
-                );
-              })}
-
-            </div>
           </div>
         </section>
 
@@ -754,9 +674,12 @@ export default function App() {
             
             {/* Section Header */}
             <div className="text-center mb-16">
-              <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">Memories Captured</span>
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">Love Gallery</h2>
+              <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">Location & Directions</span>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">Venue Gallery</h2>
               <div className="w-12 h-0.5 bg-[#556B2F] dark:bg-[#A9DFBF] mx-auto mt-4 rounded-full opacity-60" />
+              <p className="font-sans text-sm text-stone-500 dark:text-stone-400 mt-3 max-w-lg mx-auto">
+                Main street access, turnoff guidance from Jl. Diponegoro / Jl. Sindoro I, and GIA Jemaat Sindoro building views in Ungaran, Semarang.
+              </p>
             </div>
 
             {/* Responsive Photo CSS Grid */}
