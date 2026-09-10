@@ -1,0 +1,6 @@
+{
+  "name": "Wedding Website",
+  "description": "A beautiful, elegant, and fully responsive single-page wedding website.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
