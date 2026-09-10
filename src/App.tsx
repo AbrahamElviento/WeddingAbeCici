@@ -279,9 +279,9 @@ export default function App() {
           
           {/* Logo / Initials */}
           <a href="#hero" className="flex items-center gap-1.5 font-serif text-lg md:text-xl font-bold tracking-widest text-[#556B2F] dark:text-[#A9DFBF] transition-transform duration-300 hover:scale-105" id="nav-logo">
-            <span>A</span>
-            <Heart className="w-4 h-4 fill-current text-rose-500 animate-pulse inline-block mx-0.5" />
             <span>C</span>
+            <Heart className="w-4 h-4 fill-current text-rose-500 animate-pulse inline-block mx-0.5" />
+            <span>A</span>
           </a>
 
           {/* Desktop Navigation Link Hierarchy */}
@@ -375,9 +375,9 @@ export default function App() {
           {/* Hero Main Typography Panel: The Couple Names */}
           <div className="relative z-10 w-full max-w-4xl my-auto py-8 animate-fade-in" style={{ animationDelay: '200ms' }}>
             <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-white font-normal tracking-wide leading-tight px-2">
-              <span className="block sm:inline">{weddingData.couple.groom.nickname}</span>
-              <span className="font-serif italic font-light text-amber-200 text-3xl sm:text-5xl md:text-6xl mx-4 sm:mx-6 block sm:inline-block my-2 sm:my-0">&</span>
               <span className="block sm:inline">{weddingData.couple.bride.nickname}</span>
+              <span className="font-serif italic font-light text-amber-200 text-3xl sm:text-5xl md:text-6xl mx-4 sm:mx-6 block sm:inline-block my-2 sm:my-0">&</span>
+              <span className="block sm:inline">{weddingData.couple.groom.nickname}</span>
             </h1>
             
             <p className="font-sans text-base sm:text-lg md:text-xl text-stone-200 mt-6 tracking-widest uppercase font-light">
@@ -508,23 +508,6 @@ export default function App() {
           {/* Couple Cards Layout - Clean & Minimalist */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-start max-w-4xl mx-auto" id="couple-profiles">
             
-            {/* Groom Profile */}
-            <div className="flex flex-col items-center text-center p-8 bg-white dark:bg-[#181a19] rounded-2xl border border-stone-200/60 dark:border-stone-800 shadow-sm transition-all duration-300 hover:shadow-md">
-              <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-stone-100 dark:border-[#222523] shadow-inner mb-6 transition-transform duration-500 hover:scale-[1.03]">
-                <img 
-                  src={weddingData.couple.groom.imageUrl} 
-                  alt={weddingData.couple.groom.fullName} 
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
-              <h3 className="font-serif text-2xl text-stone-800 dark:text-stone-100 font-medium">{weddingData.couple.groom.fullName}</h3>
-              <p className="font-sans text-xs text-amber-600 dark:text-amber-400 uppercase tracking-widest mt-1 font-semibold">The Groom</p>
-              
-              <p className="font-sans text-xs text-stone-500 dark:text-stone-400 mt-3 italic font-medium px-4">
-                {weddingData.couple.groom.parents}
-              </p>
-            </div>
-
             {/* Bride Profile */}
             <div className="flex flex-col items-center text-center p-8 bg-white dark:bg-[#181a19] rounded-2xl border border-stone-200/60 dark:border-stone-800 shadow-sm transition-all duration-300 hover:shadow-md">
               <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-stone-100 dark:border-[#222523] shadow-inner mb-6 transition-transform duration-500 hover:scale-[1.03]">
@@ -539,6 +522,23 @@ export default function App() {
               
               <p className="font-sans text-xs text-stone-500 dark:text-stone-400 mt-3 italic font-medium px-4">
                 {weddingData.couple.bride.parents}
+              </p>
+            </div>
+
+            {/* Groom Profile */}
+            <div className="flex flex-col items-center text-center p-8 bg-white dark:bg-[#181a19] rounded-2xl border border-stone-200/60 dark:border-stone-800 shadow-sm transition-all duration-300 hover:shadow-md">
+              <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-stone-100 dark:border-[#222523] shadow-inner mb-6 transition-transform duration-500 hover:scale-[1.03]">
+                <img 
+                  src={weddingData.couple.groom.imageUrl} 
+                  alt={weddingData.couple.groom.fullName} 
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+              <h3 className="font-serif text-2xl text-stone-800 dark:text-stone-100 font-medium">{weddingData.couple.groom.fullName}</h3>
+              <p className="font-sans text-xs text-amber-600 dark:text-amber-400 uppercase tracking-widest mt-1 font-semibold">The Groom</p>
+              
+              <p className="font-sans text-xs text-stone-500 dark:text-stone-400 mt-3 italic font-medium px-4">
+                {weddingData.couple.groom.parents}
               </p>
             </div>
 
@@ -616,7 +616,7 @@ export default function App() {
                       <hr className="border-stone-200/60 dark:border-stone-800 my-4" />
 
                       <p className="font-sans text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                        <span className="font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-widest text-[9px] block mb-1">Dress Code:</span>
+                        <span className="font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-widest text-[9px] block mb-1">Attire / Dress Code:</span>
                         {weddingData.schedule[0].dressCode}
                       </p>
                     </div>
@@ -635,18 +635,11 @@ export default function App() {
 
                       <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/10 text-amber-700 dark:text-amber-300 font-sans text-xs font-bold uppercase tracking-wider mb-4">
                         <Clock className="w-3.5 h-3.5" />
-                        <span>12:00 PM - 02:30 PM</span>
+                        <span>12:00 PM - 02:00 PM</span>
                       </div>
 
-                      <p className="font-sans text-xs text-stone-600 dark:text-stone-300 leading-relaxed mb-4">
+                      <p className="font-sans text-xs text-stone-600 dark:text-stone-300 leading-relaxed">
                         Join us for joyous dining, toasts, and celebratory fellowship immediately following the ceremony.
-                      </p>
-
-                      <hr className="border-stone-200/60 dark:border-stone-800 my-4" />
-
-                      <p className="font-sans text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                        <span className="font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-widest text-[9px] block mb-1">Dress Code:</span>
-                        {weddingData.schedule[1].dressCode}
                       </p>
                     </div>
                   </div>
@@ -1044,12 +1037,12 @@ export default function App() {
           </p>
 
           <p className="font-serif text-2xl text-[#556B2F] dark:text-[#A9DFBF] font-semibold tracking-wider mb-8">
-            Abe & Cici
+            Cici & Abe
           </p>
 
           <div className="border-t border-stone-200/50 dark:border-stone-800/60 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="font-sans text-[11px] text-stone-400 dark:text-stone-500 uppercase tracking-widest font-semibold">
-              © 2026 Abe & Cici. All Rights Reserved.
+              © 2026 Cici & Abe. All Rights Reserved.
             </p>
             
             <p className="font-mono text-xs text-amber-600 dark:text-amber-400 font-semibold tracking-wider bg-stone-200/40 dark:bg-stone-800/40 px-3 py-1 rounded-full shadow-inner">

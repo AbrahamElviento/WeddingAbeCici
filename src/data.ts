@@ -37,7 +37,7 @@ export const weddingData = {
       imageUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800&h=1000",
       parents: "Daughter of Bapak Rohani & Ibu Rini Rumiyati"
     },
-    hashtag: "#AbeCici2026",
+    hashtag: "#CiciAbe2026",
     weddingDate: "2026-11-07T10:00:00", // Full ISO date for the countdown
     weddingDateFormatted: "Saturday, 7 November 2026",
     venueName: "GIA Jemaat Sindoro",
@@ -50,17 +50,16 @@ export const weddingData = {
       time: "10:00 AM - 12:00 PM",
       venue: "GIA Jemaat Sindoro",
       address: "Jl. Sindoro I No.13 A, Cirebonan, Bandarjo, Kec. Ungaran Bar., Kabupaten Semarang, Jawa Tengah 50517",
-      dressCode: "Formal Pastel (Sage Green, Cream, Soft Blush)",
+      dressCode: "Free & Proper Attire (Anything neat and suitable for church)",
       gmapsUrl: "https://maps.app.goo.gl/fj1gmYujvgPh9tTX6",
       iconName: "ring"
     },
     {
       id: "sch-2",
       title: "Wedding Reception",
-      time: "12:00 PM - 02:30 PM",
+      time: "12:00 PM - 02:00 PM",
       venue: "GIA Jemaat Sindoro Hall",
       address: "Jl. Sindoro I No.13 A, Cirebonan, Bandarjo, Kec. Ungaran Bar., Kabupaten Semarang, Jawa Tengah 50517",
-      dressCode: "Formal / Elegant Evening Wear / Premium Batik",
       gmapsUrl: "https://maps.app.goo.gl/fj1gmYujvgPh9tTX6",
       iconName: "cake"
     }
