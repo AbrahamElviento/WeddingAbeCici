@@ -22,11 +22,32 @@ import {
   VolumeX,
   ExternalLink,
   Map,
-  Smile
+  Smile,
+  Globe
 } from 'lucide-react';
 import { weddingData } from './data';
+import { translations, Language } from './translations';
 
 export default function App() {
+  // Language Management (Indonesian default, English supported)
+  const [lang, setLang] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('wedding-lang');
+      if (stored === 'id' || stored === 'en') return stored;
+    }
+    return 'id';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('wedding-lang', lang);
+  }, [lang]);
+
+  const toggleLang = () => {
+    setLang(prev => (prev === 'id' ? 'en' : 'id'));
+  };
+
+  const t = translations[lang];
+
   // Theme Management
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     // Check local storage or system preference
@@ -241,7 +262,7 @@ export default function App() {
         id="bg-music-toggle"
       >
         <span className="absolute right-14 bg-stone-900 text-stone-100 text-xs py-1 px-2.5 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 whitespace-nowrap hidden sm:inline shadow-md">
-          {isPlaying ? "Mute Music" : "Play Music"}
+          {isPlaying ? t.muteMusic : t.playMusic}
         </span>
         {isPlaying ? (
           <div className="relative flex items-center justify-center">
@@ -256,22 +277,39 @@ export default function App() {
         )}
       </button>
 
-      {/* Floating Theme / Dark Mode Toggle Widget (Top Level) */}
-      <button 
-        onClick={toggleTheme}
-        className="fixed bottom-6 left-6 z-40 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 p-3.5 rounded-full shadow-lg border border-stone-200 dark:border-stone-700 transition-all duration-300 hover:scale-110 flex items-center justify-center group"
-        aria-label="Toggle color theme"
-        id="theme-toggle"
-      >
-        <span className="absolute left-14 bg-stone-900 text-stone-100 text-xs py-1 px-2.5 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 whitespace-nowrap hidden sm:inline shadow-md">
-          {theme === 'light' ? "Switch to Dark Mode" : "Switch to Light Mode"}
-        </span>
-        {theme === 'light' ? (
-          <Moon className="w-5 h-5 text-stone-600" />
-        ) : (
-          <Sun className="w-5 h-5 text-amber-300" />
-        )}
-      </button>
+      {/* Floating Left Control Widgets (Theme & Language Switchers side-by-side) */}
+      <div className="fixed bottom-6 left-6 z-40 flex items-center gap-2.5">
+        {/* Floating Theme / Dark Mode Toggle Widget */}
+        <button 
+          onClick={toggleTheme}
+          className="bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 p-3.5 rounded-full shadow-lg border border-stone-200 dark:border-stone-700 transition-all duration-300 hover:scale-110 flex items-center justify-center group relative"
+          aria-label="Toggle color theme"
+          id="theme-toggle"
+        >
+          <span className="absolute bottom-14 left-0 bg-stone-900 text-stone-100 text-xs py-1 px-2.5 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 whitespace-nowrap hidden sm:inline shadow-md">
+            {theme === 'light' ? t.switchToDark : t.switchToLight}
+          </span>
+          {theme === 'light' ? (
+            <Moon className="w-5 h-5 text-stone-600" />
+          ) : (
+            <Sun className="w-5 h-5 text-amber-300" />
+          )}
+        </button>
+
+        {/* Floating Language Switcher Widget */}
+        <button 
+          onClick={toggleLang}
+          className="bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 px-3.5 py-3 rounded-full shadow-lg border border-stone-200 dark:border-stone-700 transition-all duration-300 hover:scale-105 flex items-center gap-1.5 font-sans text-xs font-bold uppercase tracking-wider group relative"
+          aria-label="Switch language"
+          id="language-toggle"
+        >
+          <span className="absolute bottom-14 left-0 bg-stone-900 text-stone-100 text-xs py-1 px-2.5 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 whitespace-nowrap hidden sm:inline shadow-md">
+            {lang === 'id' ? t.switchToEn : t.switchToId}
+          </span>
+          <Globe className="w-4 h-4 text-[#556B2F] dark:text-[#A9DFBF]" />
+          <span>{lang === 'id' ? 'ID' : 'EN'}</span>
+        </button>
+      </div>
 
       {/* Sticky Navigation Header */}
       <header className="sticky top-0 z-30 w-full bg-stone-50/90 dark:bg-[#111312]/95 backdrop-blur-md border-b border-stone-200/60 dark:border-stone-800/80 transition-all duration-300">
@@ -286,10 +324,10 @@ export default function App() {
 
           {/* Desktop Navigation Link Hierarchy */}
           <nav className="hidden md:flex items-center space-x-8 font-sans text-xs uppercase tracking-widest font-semibold" id="desktop-nav">
-            <a href="#hero" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">Home</a>
-            <a href="#couple" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">The Couple</a>
-            <a href="#events" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">Events</a>
-            <a href="#gallery" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">Venue Gallery</a>
+            <a href="#hero" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">{t.navHome}</a>
+            <a href="#couple" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">{t.navCouple}</a>
+            <a href="#events" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">{t.navEvents}</a>
+            <a href="#gallery" className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] transition-colors py-1">{t.navGallery}</a>
           </nav>
 
           {/* Hamburger Menu Toggle for Mobile Screen Precision */}
@@ -314,28 +352,28 @@ export default function App() {
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] font-sans text-sm uppercase tracking-wider font-semibold"
             >
-              Home
+              {t.navHome}
             </a>
             <a 
               href="#couple" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] font-sans text-sm uppercase tracking-wider font-semibold"
             >
-              The Couple
+              {t.navCouple}
             </a>
             <a 
               href="#events" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] font-sans text-sm uppercase tracking-wider font-semibold"
             >
-              Events & Schedule
+              {t.navEvents}
             </a>
             <a 
               href="#gallery" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-stone-600 dark:text-stone-300 hover:text-[#556B2F] dark:hover:text-[#A9DFBF] font-sans text-sm uppercase tracking-wider font-semibold"
             >
-              Venue Gallery
+              {t.navGallery}
             </a>
           </nav>
         )}
@@ -367,7 +405,7 @@ export default function App() {
           <div className="relative z-10 w-full max-w-4xl pt-12 animate-fade-in">
             <span className="font-sans text-xs sm:text-sm uppercase tracking-[0.3em] text-amber-200 font-semibold inline-flex items-center gap-2">
               <Sparkles className="w-3 h-3 fill-current animate-pulse text-amber-300" />
-              The Wedding Invitation
+              {t.weddingInvitation}
               <Sparkles className="w-3 h-3 fill-current animate-pulse text-amber-300" />
             </span>
           </div>
@@ -381,12 +419,12 @@ export default function App() {
             </h1>
             
             <p className="font-sans text-base sm:text-lg md:text-xl text-stone-200 mt-6 tracking-widest uppercase font-light">
-              {weddingData.couple.weddingDateFormatted}
+              {t.weddingDateFormatted}
             </p>
             
             <p className="font-sans text-sm md:text-base text-amber-100/90 mt-2 tracking-wide font-medium flex items-center justify-center gap-1.5">
               <MapPin className="w-4 h-4 text-amber-200" />
-              {weddingData.couple.venueName} • Ungaran, Semarang
+              {t.venueLocation}
             </p>
 
             {/* Google Map Card below Location right before Countdown */}
@@ -395,7 +433,7 @@ export default function App() {
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-left mb-3">
                   <div className="text-center sm:text-left">
                     <p className="font-sans text-xs uppercase tracking-widest text-amber-200 font-semibold flex items-center justify-center sm:justify-start gap-1">
-                      <MapPin className="w-3.5 h-3.5" /> Venue Map
+                      <MapPin className="w-3.5 h-3.5" /> Peta Lokasi / Venue Map
                     </p>
                     <p className="font-serif text-base text-white font-medium mt-0.5">{weddingData.couple.venueName}</p>
                     <p className="font-sans text-[11px] text-stone-200/90 line-clamp-1">{weddingData.couple.venueAddress}</p>
@@ -407,7 +445,7 @@ export default function App() {
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-200/90 hover:bg-amber-100 text-stone-900 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow hover:scale-105 shrink-0"
                   >
                     <Map className="w-3.5 h-3.5" />
-                    Open Google Maps
+                    {t.openMaps}
                   </a>
                 </div>
 
@@ -435,7 +473,7 @@ export default function App() {
             style={{ animationDelay: '400ms' }}
           >
             <div className="bg-white/10 dark:bg-black/40 backdrop-blur-md rounded-2xl px-6 py-6 md:px-10 md:py-8 border border-white/15 dark:border-white/5 shadow-2xl max-w-xl mx-auto">
-              <h2 className="font-sans text-xs uppercase tracking-widest text-amber-200 mb-5 font-semibold">Counting Down to Forever</h2>
+              <h2 className="font-sans text-xs uppercase tracking-widest text-amber-200 mb-5 font-semibold">{lang === 'id' ? 'Menghitung Hari Bahagia' : 'Counting Down to Forever'}</h2>
               
               {!timeLeft.isCompleted ? (
                 <div className="grid grid-cols-4 gap-3 md:gap-6 text-white" id="countdown-timer">
@@ -445,7 +483,7 @@ export default function App() {
                     <span className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight leading-none bg-stone-900/30 dark:bg-black/30 w-full py-3 rounded-xl border border-white/5">
                       {String(timeLeft.days).padStart(2, '0')}
                     </span>
-                    <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-stone-300 mt-2.5 font-medium">Days</span>
+                    <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-stone-300 mt-2.5 font-medium">{t.days}</span>
                   </div>
 
                   {/* Hours */}
@@ -453,7 +491,7 @@ export default function App() {
                     <span className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight leading-none bg-stone-900/30 dark:bg-black/30 w-full py-3 rounded-xl border border-white/5">
                       {String(timeLeft.hours).padStart(2, '0')}
                     </span>
-                    <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-stone-300 mt-2.5 font-medium">Hours</span>
+                    <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-stone-300 mt-2.5 font-medium">{t.hours}</span>
                   </div>
 
                   {/* Minutes */}
@@ -461,7 +499,7 @@ export default function App() {
                     <span className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight leading-none bg-stone-900/30 dark:bg-black/30 w-full py-3 rounded-xl border border-white/5">
                       {String(timeLeft.minutes).padStart(2, '0')}
                     </span>
-                    <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-stone-300 mt-2.5 font-medium">Mins</span>
+                    <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-stone-300 mt-2.5 font-medium">{t.minutes}</span>
                   </div>
 
                   {/* Seconds */}
@@ -469,14 +507,14 @@ export default function App() {
                     <span className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-amber-300 tracking-tight leading-none bg-stone-900/30 dark:bg-black/30 w-full py-3 rounded-xl border border-white/5">
                       {String(timeLeft.seconds).padStart(2, '0')}
                     </span>
-                    <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-stone-300 mt-2.5 font-medium">Secs</span>
+                    <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-stone-300 mt-2.5 font-medium">{t.seconds}</span>
                   </div>
 
                 </div>
               ) : (
                 <div className="text-center py-2 text-white">
                   <Heart className="w-10 h-10 text-rose-500 fill-current animate-pulse mx-auto mb-2" />
-                  <p className="font-serif text-xl sm:text-2xl font-light italic text-amber-200">The Big Day Has Arrived! 🎉</p>
+                  <p className="font-serif text-xl sm:text-2xl font-light italic text-amber-200">{t.countdownCompleted}</p>
                 </div>
               )}
             </div>
@@ -500,8 +538,8 @@ export default function App() {
         >
           {/* Section Eyebrow Header */}
           <div className="text-center mb-16 md:mb-20">
-            <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">With Love & Joy</span>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">The Happy Couple</h2>
+            <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">{t.coupleEyebrow}</span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">{t.coupleTitle}</h2>
             <div className="w-12 h-0.5 bg-[#556B2F] dark:bg-[#A9DFBF] mx-auto mt-4 rounded-full opacity-60" />
           </div>
 
@@ -518,10 +556,10 @@ export default function App() {
                 />
               </div>
               <h3 className="font-serif text-2xl text-stone-800 dark:text-stone-100 font-medium">{weddingData.couple.bride.fullName}</h3>
-              <p className="font-sans text-xs text-amber-600 dark:text-amber-400 uppercase tracking-widest mt-1 font-semibold">The Bride</p>
+              <p className="font-sans text-xs text-amber-600 dark:text-amber-400 uppercase tracking-widest mt-1 font-semibold">{t.brideRole}</p>
               
               <p className="font-sans text-xs text-stone-500 dark:text-stone-400 mt-3 italic font-medium px-4">
-                {weddingData.couple.bride.parents}
+                {t.brideParents}
               </p>
             </div>
 
@@ -535,10 +573,10 @@ export default function App() {
                 />
               </div>
               <h3 className="font-serif text-2xl text-stone-800 dark:text-stone-100 font-medium">{weddingData.couple.groom.fullName}</h3>
-              <p className="font-sans text-xs text-amber-600 dark:text-amber-400 uppercase tracking-widest mt-1 font-semibold">The Groom</p>
+              <p className="font-sans text-xs text-amber-600 dark:text-amber-400 uppercase tracking-widest mt-1 font-semibold">{t.groomRole}</p>
               
               <p className="font-sans text-xs text-stone-500 dark:text-stone-400 mt-3 italic font-medium px-4">
-                {weddingData.couple.groom.parents}
+                {t.groomParents}
               </p>
             </div>
 
@@ -554,8 +592,8 @@ export default function App() {
             
             {/* Section Header */}
             <div className="text-center mb-16">
-              <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">Join Our Celebration</span>
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">Wedding Schedule</h2>
+              <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">{t.eventsEyebrow}</span>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">{t.eventsTitle}</h2>
               <div className="w-12 h-0.5 bg-[#556B2F] dark:bg-[#A9DFBF] mx-auto mt-4 rounded-full opacity-60" />
             </div>
 
@@ -565,7 +603,7 @@ export default function App() {
               {/* Venue Location Banner */}
               <div className="bg-[#556B2F]/10 dark:bg-[#A9DFBF]/10 p-6 md:p-8 border-b border-stone-200/60 dark:border-stone-800 text-center">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#556B2F]/15 dark:bg-[#A9DFBF]/15 text-[#556B2F] dark:text-[#A9DFBF] text-xs font-semibold uppercase tracking-wider mb-3">
-                  <MapPin className="w-3.5 h-3.5" /> Single Location Venue
+                  <MapPin className="w-3.5 h-3.5" /> GIA Jemaat Sindoro
                 </span>
                 <h3 className="font-serif text-2xl md:text-3xl text-stone-800 dark:text-stone-100 font-semibold mb-2">
                   {weddingData.couple.venueName}
@@ -581,7 +619,7 @@ export default function App() {
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#556B2F] hover:bg-[#435525] dark:bg-[#A9DFBF] dark:hover:bg-[#8EC5A2] text-white dark:text-stone-950 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105"
                   >
                     <Map className="w-4 h-4" />
-                    Open Google Maps Location
+                    {t.openMaps}
                   </a>
                 </div>
               </div>
@@ -601,23 +639,23 @@ export default function App() {
                       </div>
 
                       <h4 className="font-serif text-xl text-stone-800 dark:text-stone-100 font-semibold mb-2">
-                        Holy Matrimony
+                        {t.matrimonyTitle}
                       </h4>
 
                       <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/10 text-amber-700 dark:text-amber-300 font-sans text-xs font-bold uppercase tracking-wider mb-4">
                         <Clock className="w-3.5 h-3.5" />
-                        <span>10:00 AM - 12:00 PM</span>
+                        <span>{t.matrimonyTime}</span>
                       </div>
 
                       <p className="font-sans text-xs text-stone-600 dark:text-stone-300 leading-relaxed mb-4">
-                        The sacred wedding blessing & matrimonial vow exchange service.
+                        {t.matrimonyDesc}
                       </p>
 
                       <hr className="border-stone-200/60 dark:border-stone-800 my-4" />
 
                       <p className="font-sans text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                        <span className="font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-widest text-[9px] block mb-1">Attire / Dress Code:</span>
-                        {weddingData.schedule[0].dressCode}
+                        <span className="font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-widest text-[9px] block mb-1">{t.attireLabel}</span>
+                        {t.matrimonyDressCode}
                       </p>
                     </div>
                   </div>
@@ -630,16 +668,16 @@ export default function App() {
                       </div>
 
                       <h4 className="font-serif text-xl text-stone-800 dark:text-stone-100 font-semibold mb-2">
-                        Wedding Reception
+                        {t.receptionTitle}
                       </h4>
 
                       <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/10 text-amber-700 dark:text-amber-300 font-sans text-xs font-bold uppercase tracking-wider mb-4">
                         <Clock className="w-3.5 h-3.5" />
-                        <span>12:00 PM - 02:00 PM</span>
+                        <span>{t.receptionTime}</span>
                       </div>
 
                       <p className="font-sans text-xs text-stone-600 dark:text-stone-300 leading-relaxed">
-                        Join us for joyous dining, toasts, and celebratory fellowship immediately following the ceremony.
+                        {t.receptionDesc}
                       </p>
                     </div>
                   </div>
@@ -648,7 +686,7 @@ export default function App() {
 
                 <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 text-center">
                   <p className="font-sans text-xs text-stone-500 dark:text-stone-400 italic">
-                    Note: Guests are welcome to join both the Matrimony and Reception, or attend the Reception directly at 12:00 PM.
+                    {t.venueNotice}
                   </p>
                 </div>
               </div>
@@ -667,27 +705,28 @@ export default function App() {
             
             {/* Section Header */}
             <div className="text-center mb-16">
-              <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">Location & Directions</span>
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">Venue Gallery</h2>
+              <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">{t.galleryEyebrow}</span>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">{t.galleryTitle}</h2>
               <div className="w-12 h-0.5 bg-[#556B2F] dark:bg-[#A9DFBF] mx-auto mt-4 rounded-full opacity-60" />
               <p className="font-sans text-sm text-stone-500 dark:text-stone-400 mt-3 max-w-lg mx-auto">
-                Main street access, turnoff guidance from Jl. Diponegoro / Jl. Sindoro I, and GIA Jemaat Sindoro building views in Ungaran, Semarang.
+                {t.gallerySubtitle}
               </p>
             </div>
 
             {/* Responsive Photo CSS Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
               {weddingData.gallery.map((item, index) => {
+                const caption = t.galleryCaptions[index] || item.caption;
                 return (
                   <div 
                     key={item.id}
                     onClick={() => setActivePhotoIndex(index)}
                     className="relative group overflow-hidden rounded-2xl border border-stone-200/40 dark:border-stone-800/60 aspect-[4/3] cursor-pointer shadow-sm hover:shadow-md transition-all duration-300"
                   >
-                    {/* Unsplash Image */}
+                    {/* Image */}
                     <img 
                       src={item.url} 
-                      alt={item.caption} 
+                      alt={caption} 
                       className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       loading="lazy"
                     />
@@ -696,8 +735,8 @@ export default function App() {
                     <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                       <div className="text-white transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
                         <Camera className="w-5 h-5 text-amber-300 mb-1.5" />
-                        <p className="font-serif text-lg font-light italic text-stone-100">{item.caption}</p>
-                        <span className="font-sans text-[10px] uppercase tracking-wider text-stone-300">Click to expand</span>
+                        <p className="font-serif text-lg font-light italic text-stone-100">{caption}</p>
+                        <span className="font-sans text-[10px] uppercase tracking-wider text-stone-300">{t.clickToExpand}</span>
                       </div>
                     </div>
                   </div>
@@ -936,11 +975,11 @@ export default function App() {
             
             {/* Section Header */}
             <div className="text-center mb-16">
-              <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">Gifts & Blessings</span>
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">Wedding Registry</h2>
+              <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">{t.registryEyebrow}</span>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">{t.registryTitle}</h2>
               <div className="w-12 h-0.5 bg-[#556B2F] dark:bg-[#A9DFBF] mx-auto mt-4 rounded-full opacity-60" />
               <p className="font-sans text-sm text-stone-500 dark:text-stone-400 mt-4 max-w-lg mx-auto leading-relaxed">
-                Your presence on our big day is the greatest gift of all. However, if you wish to honor us with a token of love, we have provided our digital transfer details below.
+                {t.registrySubtitle}
               </p>
             </div>
 
@@ -959,12 +998,12 @@ export default function App() {
                         {account.bankName.split(' ')[0]}
                       </div>
 
-                      <span className="font-sans text-xs text-stone-400 dark:text-stone-500 uppercase tracking-widest font-semibold block mb-1">Account Number:</span>
+                      <span className="font-sans text-xs text-stone-400 dark:text-stone-500 uppercase tracking-widest font-semibold block mb-1">{t.accountNumberLabel}</span>
                       <p className="font-mono text-xl text-stone-800 dark:text-stone-100 font-bold tracking-wider mb-2">
                         {account.accountNumber}
                       </p>
 
-                      <span className="font-sans text-xs text-stone-400 dark:text-stone-500 uppercase tracking-widest font-semibold block mb-1">Account Holder:</span>
+                      <span className="font-sans text-xs text-stone-400 dark:text-stone-500 uppercase tracking-widest font-semibold block mb-1">{t.accountHolderLabel}</span>
                       <p className="font-sans text-sm text-stone-700 dark:text-stone-300 font-medium mb-6">
                         {account.accountHolder}
                       </p>
@@ -983,12 +1022,12 @@ export default function App() {
                         {isCopied ? (
                           <>
                             <Check className="w-4 h-4" />
-                            Account Copied!
+                            {t.accountCopied}
                           </>
                         ) : (
                           <>
                             <Copy className="w-4 h-4" />
-                            Copy Account
+                            {t.copyAccount}
                           </>
                         )}
                       </button>
@@ -1002,8 +1041,7 @@ export default function App() {
             <div className="mt-12 text-center max-w-lg mx-auto">
               <Gift className="w-5 h-5 text-amber-500 mx-auto mb-2 animate-bounce" />
               <p className="font-sans text-xs text-stone-400 dark:text-stone-500 leading-relaxed">
-                Need details for physical gifts or wedding souvenirs? <br />
-                Feel free to reach us directly or coordinate with the wedding organizers.
+                {t.giftPhysicalNotice}
               </p>
             </div>
 
@@ -1024,16 +1062,15 @@ export default function App() {
           </div>
 
           <p className="font-serif text-2xl sm:text-3xl text-stone-800 dark:text-stone-100 font-light italic leading-relaxed max-w-2xl mx-auto mb-4">
-            "Therefore what God has joined together, let no one separate."
+            {t.footerBibleVerse}
           </p>
           
           <p className="font-sans text-xs uppercase tracking-widest text-stone-400 mb-8 font-semibold">
-            - Matthew 19:6
+            {t.footerBibleRef}
           </p>
 
           <p className="font-sans text-sm text-stone-600 dark:text-stone-400 leading-relaxed mb-6">
-            Thank you for being a part of our life story and celebrating our marriage. <br />
-            We look forward to sharing this magical day with you.
+            {t.footerThankYou}
           </p>
 
           <p className="font-serif text-2xl text-[#556B2F] dark:text-[#A9DFBF] font-semibold tracking-wider mb-8">
@@ -1042,7 +1079,7 @@ export default function App() {
 
           <div className="border-t border-stone-200/50 dark:border-stone-800/60 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="font-sans text-[11px] text-stone-400 dark:text-stone-500 uppercase tracking-widest font-semibold">
-              © 2026 Cici & Abe. All Rights Reserved.
+              {t.footerRights}
             </p>
             
             <p className="font-mono text-xs text-amber-600 dark:text-amber-400 font-semibold tracking-wider bg-stone-200/40 dark:bg-stone-800/40 px-3 py-1 rounded-full shadow-inner">
@@ -1062,7 +1099,7 @@ export default function App() {
           {/* Lightbox Header Close Control */}
           <div className="w-full max-w-6xl flex justify-between items-center text-white/80">
             <span className="font-sans text-xs uppercase tracking-widest font-medium">
-              Photo {activePhotoIndex + 1} of {weddingData.gallery.length}
+              {t.photoCount.replace('{current}', String(activePhotoIndex + 1)).replace('{total}', String(weddingData.gallery.length))}
             </span>
             <button 
               onClick={() => setActivePhotoIndex(null)}
@@ -1091,7 +1128,7 @@ export default function App() {
             <div className="max-w-[85vw] max-h-[70vh] rounded-xl overflow-hidden shadow-2xl relative bg-stone-900 border border-white/5">
               <img 
                 src={weddingData.gallery[activePhotoIndex].url} 
-                alt={weddingData.gallery[activePhotoIndex].caption}
+                alt={t.galleryCaptions[activePhotoIndex] || weddingData.gallery[activePhotoIndex].caption}
                 className="max-w-full max-h-[70vh] object-contain mx-auto"
               />
             </div>
@@ -1110,8 +1147,8 @@ export default function App() {
 
           {/* Lightbox Footer Caption Detail */}
           <div className="w-full max-w-2xl text-center text-stone-300 pb-4">
-            <p className="font-serif text-lg italic text-white/95">{weddingData.gallery[activePhotoIndex].caption}</p>
-            <p className="font-sans text-[10px] uppercase tracking-widest text-stone-500 mt-1">Use Left / Right arrow buttons to navigate</p>
+            <p className="font-serif text-lg italic text-white/95">{t.galleryCaptions[activePhotoIndex] || weddingData.gallery[activePhotoIndex].caption}</p>
+            <p className="font-sans text-[10px] uppercase tracking-widest text-stone-500 mt-1">{t.lightboxNavNotice}</p>
           </div>
 
         </div>
