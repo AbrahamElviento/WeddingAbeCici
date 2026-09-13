@@ -64,38 +64,15 @@ export const weddingData = {
       iconName: "cake"
     }
   ] as ScheduleItem[],
-  gallery: [
-    {
-      id: "gal-1",
-      url: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=800",
-      caption: "Main Street Entrance from Jl. Diponegoro into Jl. Sindoro I (Ungaran)"
-    },
-    {
-      id: "gal-2",
-      url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800",
-      caption: "Street View & Wayfinding Alley leading to GIA Jemaat Sindoro"
-    },
-    {
-      id: "gal-3",
-      url: "https://images.unsplash.com/photo-1548625361-183049197c36?auto=format&fit=crop&q=80&w=800",
-      caption: "GIA Jemaat Sindoro Front Exterior & Main Building Entrance"
-    },
-    {
-      id: "gal-4",
-      url: "https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&q=80&w=800",
-      caption: "Main Sanctuary Hall Interior & Wedding Blessing Altar"
-    },
-    {
-      id: "gal-5",
-      url: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&q=80&w=800",
-      caption: "Reception Hall & Fellowship Area"
-    },
-    {
-      id: "gal-6",
-      url: "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&q=80&w=800",
-      caption: "Spacious Guest Parking & Drop-off Area"
-    }
-  ] as GalleryItem[],
+  route: {
+    mapChannelsUrl: "https://www.mapchannels.com/routemaps3/map.htm?route=-7.117391,110.412769,-7.117456,110.411761",
+    googleMapsDirectionsUrl: "https://www.google.com/maps/dir/-7.117391,110.412769/-7.117456,110.411761",
+    googleMapsEmbedDirectionsUrl: "https://maps.google.com/maps?saddr=-7.117391,110.412769&daddr=-7.117456,110.411761&t=&z=18&ie=UTF8&iwloc=&output=embed",
+    googleStreetViewEmbedUrl: "https://maps.google.com/maps?layer=c&cbll=-7.117391,110.412769&cbp=12,270,0,0,0&output=svembed",
+    startCoordinates: "-7.117391, 110.412769",
+    endCoordinates: "-7.117456, 110.411761"
+  },
+  gallery: [] as GalleryItem[],
   registry: [
     {
       id: "reg-1",

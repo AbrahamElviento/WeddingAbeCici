@@ -137,6 +137,9 @@ export default function App() {
   // Responsive Hamburger Menu
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Route Map & Street View Tab State
+  const [routeTab, setRouteTab] = useState<'google' | 'streetview'>('google');
+
   // Gallery Lightbox State
   const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null);
 
@@ -433,7 +436,7 @@ export default function App() {
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-left mb-3">
                   <div className="text-center sm:text-left">
                     <p className="font-sans text-xs uppercase tracking-widest text-amber-200 font-semibold flex items-center justify-center sm:justify-start gap-1">
-                      <MapPin className="w-3.5 h-3.5" /> Peta Lokasi / Venue Map
+                      <MapPin className="w-3.5 h-3.5" /> {t.venueMapLabel}
                     </p>
                     <p className="font-serif text-base text-white font-medium mt-0.5">{weddingData.couple.venueName}</p>
                     <p className="font-sans text-[11px] text-stone-200/90 line-clamp-1">{weddingData.couple.venueAddress}</p>
@@ -473,7 +476,7 @@ export default function App() {
             style={{ animationDelay: '400ms' }}
           >
             <div className="bg-white/10 dark:bg-black/40 backdrop-blur-md rounded-2xl px-6 py-6 md:px-10 md:py-8 border border-white/15 dark:border-white/5 shadow-2xl max-w-xl mx-auto">
-              <h2 className="font-sans text-xs uppercase tracking-widest text-amber-200 mb-5 font-semibold">{lang === 'id' ? 'Menghitung Hari Bahagia' : 'Counting Down to Forever'}</h2>
+              <h2 className="font-sans text-xs uppercase tracking-widest text-amber-200 mb-5 font-semibold">{t.countdownTitle}</h2>
               
               {!timeLeft.isCompleted ? (
                 <div className="grid grid-cols-4 gap-3 md:gap-6 text-white" id="countdown-timer">
@@ -696,7 +699,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* 4. PHOTO GALLERY: CSS Grid and Interactive Lightbox Modal */}
+        {/* 4. VENUE ROUTE & STREET VIEW GALLERY */}
         <section 
           id="gallery" 
           className="py-20 md:py-28 px-4 max-w-6xl mx-auto border-b border-stone-200/50 dark:border-stone-800/40"
@@ -704,44 +707,118 @@ export default function App() {
           <div className="max-w-6xl mx-auto">
             
             {/* Section Header */}
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
               <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#556B2F] dark:text-[#A9DFBF] font-semibold">{t.galleryEyebrow}</span>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-stone-800 dark:text-stone-100 font-normal mt-2">{t.galleryTitle}</h2>
               <div className="w-12 h-0.5 bg-[#556B2F] dark:bg-[#A9DFBF] mx-auto mt-4 rounded-full opacity-60" />
-              <p className="font-sans text-sm text-stone-500 dark:text-stone-400 mt-3 max-w-lg mx-auto">
+              <p className="font-sans text-sm text-stone-500 dark:text-stone-400 mt-3 max-w-2xl mx-auto leading-relaxed">
                 {t.gallerySubtitle}
               </p>
             </div>
 
-            {/* Responsive Photo CSS Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
-              {weddingData.gallery.map((item, index) => {
-                const caption = t.galleryCaptions[index] || item.caption;
-                return (
-                  <div 
-                    key={item.id}
-                    onClick={() => setActivePhotoIndex(index)}
-                    className="relative group overflow-hidden rounded-2xl border border-stone-200/40 dark:border-stone-800/60 aspect-[4/3] cursor-pointer shadow-sm hover:shadow-md transition-all duration-300"
-                  >
-                    {/* Image */}
-                    <img 
-                      src={item.url} 
-                      alt={caption} 
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      loading="lazy"
-                    />
+            {/* Route Map Controls & Embedded Viewer Container */}
+            <div className="bg-white dark:bg-[#181a19] rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-md overflow-hidden p-4 sm:p-6 md:p-8">
+              
+              {/* Tab Selector Buttons */}
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+                <button
+                  type="button"
+                  onClick={() => setRouteTab('google')}
+                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                    routeTab === 'google'
+                      ? 'bg-[#556B2F] text-white dark:bg-[#A9DFBF] dark:text-stone-950 shadow-xs'
+                      : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                  }`}
+                >
+                  <MapPin className="w-4 h-4" />
+                  {t.googleDirectionsTab}
+                </button>
 
-                    {/* Dark gradient and caption reveal on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                      <div className="text-white transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
-                        <Camera className="w-5 h-5 text-amber-300 mb-1.5" />
-                        <p className="font-serif text-lg font-light italic text-stone-100">{caption}</p>
-                        <span className="font-sans text-[10px] uppercase tracking-wider text-stone-300">{t.clickToExpand}</span>
-                      </div>
-                    </div>
+                <button
+                  type="button"
+                  onClick={() => setRouteTab('streetview')}
+                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                    routeTab === 'streetview'
+                      ? 'bg-[#556B2F] text-white dark:bg-[#A9DFBF] dark:text-stone-950 shadow-xs'
+                      : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                  }`}
+                >
+                  <Camera className="w-4 h-4" />
+                  {t.streetViewTab}
+                </button>
+              </div>
+
+              {/* Responsive Embedded IFrame Container */}
+              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] md:aspect-[21/9] min-h-[380px] sm:min-h-[460px] rounded-xl overflow-hidden border border-stone-200/80 dark:border-stone-800 bg-stone-100 dark:bg-stone-900 shadow-inner">
+                {routeTab === 'google' && (
+                  <iframe
+                    title="Google Maps Route Directions"
+                    src={weddingData.route.googleMapsEmbedDirectionsUrl}
+                    className="w-full h-full border-0"
+                    loading="lazy"
+                    allowFullScreen
+                  />
+                )}
+
+                {routeTab === 'streetview' && (
+                  <iframe
+                    title="Google Street View"
+                    src={weddingData.route.googleStreetViewEmbedUrl}
+                    className="w-full h-full border-0"
+                    loading="lazy"
+                    allowFullScreen
+                  />
+                )}
+              </div>
+
+              {/* Turn-by-Turn Route Guidance Box */}
+              <div className="mt-8 p-6 bg-stone-50 dark:bg-[#202322] rounded-xl border border-stone-200/60 dark:border-stone-800">
+                <h4 className="font-serif text-lg font-semibold text-stone-800 dark:text-stone-100 mb-4 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  {t.routeStepsTitle}
+                </h4>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-sans text-xs text-stone-600 dark:text-stone-300">
+                  <div className="p-4 rounded-lg bg-white dark:bg-[#181a19] border border-stone-200/50 dark:border-stone-800">
+                    <span className="font-bold text-[#556B2F] dark:text-[#A9DFBF] block mb-1 uppercase tracking-wider">{t.routeStep1Title}</span>
+                    <p className="leading-relaxed">{t.routeStep1Desc}</p>
                   </div>
-                );
-              })}
+
+                  <div className="p-4 rounded-lg bg-white dark:bg-[#181a19] border border-stone-200/50 dark:border-stone-800">
+                    <span className="font-bold text-[#556B2F] dark:text-[#A9DFBF] block mb-1 uppercase tracking-wider">{t.routeStep2Title}</span>
+                    <p className="leading-relaxed">{t.routeStep2Desc}</p>
+                  </div>
+
+                  <div className="p-4 rounded-lg bg-white dark:bg-[#181a19] border border-stone-200/50 dark:border-stone-800">
+                    <span className="font-bold text-[#556B2F] dark:text-[#A9DFBF] block mb-1 uppercase tracking-wider">{t.routeStep3Title}</span>
+                    <p className="leading-relaxed">{t.routeStep3Desc}</p>
+                  </div>
+                </div>
+
+                {/* External Action Buttons */}
+                <div className="mt-6 pt-4 border-t border-stone-200/60 dark:border-stone-800/80 flex flex-wrap items-center justify-center gap-3">
+                  <a
+                    href={weddingData.route.mapChannelsUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#556B2F] hover:bg-[#435525] dark:bg-[#A9DFBF] dark:hover:bg-[#8EC5A2] text-white dark:text-stone-950 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    {t.openMapChannelsBtn}
+                  </a>
+
+                  <a
+                    href={weddingData.route.googleMapsDirectionsUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-900 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-100 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105"
+                  >
+                    <Map className="w-4 h-4" />
+                    {t.openGoogleMapsBtn}
+                  </a>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -994,7 +1071,7 @@ export default function App() {
                   >
                     <div>
                       {/* Bank logo container */}
-                      <div className="w-16 h-10 bg-stone-100 dark:bg-stone-800 rounded-lg flex items-center justify-center font-serif text-sm font-bold text-[#556B2F] dark:text-[#A9DFBF] mx-auto mb-6 uppercase tracking-wider border border-stone-200/40 dark:border-stone-700">
+                      <div className="inline-flex items-center justify-center px-6 py-2.5 min-w-[6.5rem] h-11 bg-stone-100 dark:bg-stone-800 rounded-xl font-serif text-sm font-bold text-[#556B2F] dark:text-[#A9DFBF] mx-auto mb-6 uppercase tracking-widest border border-stone-200/50 dark:border-stone-700 shadow-xs">
                         {account.bankName.split(' ')[0]}
                       </div>
 

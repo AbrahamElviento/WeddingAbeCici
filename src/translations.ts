@@ -12,6 +12,7 @@ export const translations = {
     weddingInvitation: 'UNDANGAN PERNIKAHAN',
     weddingDateFormatted: 'Sabtu, 7 November 2026',
     venueLocation: 'GIA Jemaat Sindoro • Ungaran, Semarang',
+    countdownTitle: 'Menghitung Hari Bahagia',
     days: 'Hari',
     hours: 'Jam',
     minutes: 'Menit',
@@ -42,7 +43,7 @@ export const translations = {
     matrimonyTitle: 'Pemberkatan Nikah',
     matrimonyTime: '10:00 WIB - 12:00 WIB',
     matrimonyDesc: 'Ibadah sakramen pernikahan dan pemberkatan nikah kudus.',
-    attireLabel: 'Busana / Dress Code:',
+    attireLabel: 'Busana:',
     matrimonyDressCode: 'Bebas & Rapi (Sopan dan sesuai untuk ibadah gereja)',
 
     receptionTitle: 'Resepsi Pernikahan',
@@ -50,25 +51,30 @@ export const translations = {
     receptionDesc: 'Ramah tamah dan makan siang bersama merayakan kebahagiaan setelah acara ibadah pemberkatan.',
 
     openMaps: 'Buka Google Maps',
+    venueMapLabel: 'Peta Lokasi',
     addToCalendar: 'Tambah ke Kalender',
     venueNotice: 'Catatan: Tamu diundang untuk menghadiri Pemberkatan & Resepsi, atau langsung hadir pada Resepsi pukul 12:00 WIB.',
 
-    // Venue Gallery
-    galleryEyebrow: 'LOKASI & PETUNJUK',
-    galleryTitle: 'Galeri Lokasi',
-    gallerySubtitle: 'Akses jalan utama, petunjuk belokan dari Jl. Diponegoro / Jl. Sindoro I, serta area gedung GIA Jemaat Sindoro Ungaran, Semarang.',
+    // Venue Gallery / Route Map
+    galleryEyebrow: 'PETUNJUK RUTE & STREET VIEW',
+    galleryTitle: 'Peta Rute & Navigasi Lokasi',
+    gallerySubtitle: 'Navigasi rute asli Google Street View dari Jalan Utama (Jl. Diponegoro) masuk ke Jl. Sindoro I menuju Gereja GIA Jemaat Sindoro.',
     clickToExpand: 'Klik untuk memperbesar',
     photoCount: 'Foto {current} dari {total}',
     lightboxNavNotice: 'Gunakan tombol panah Kiri / Kanan untuk navigasi',
 
-    galleryCaptions: [
-      'Pintu Masuk Jalan Utama dari Jl. Diponegoro ke Jl. Sindoro I (Ungaran)',
-      'Akses Jalan & Gang Petunjuk Arah menuju GIA Jemaat Sindoro',
-      'Tampak Depan & Pintu Utama Gedung GIA Jemaat Sindoro',
-      'Ruang Utama Gereja & Altar Pemberkatan Nikah',
-      'Ruang Resepsi & Area Ramah Tamah',
-      'Area Parkir Tamu & Drop-off Luas'
-    ],
+    mapChannelsTab: 'Peta Rute MapChannels',
+    googleDirectionsTab: 'Peta Rute Google Maps',
+    streetViewTab: 'Street View',
+    routeStepsTitle: 'Panduan Rute Jalan Utama ke Gereja:',
+    routeStep1Title: 'Langkah 1: Belokan Jalan Utama',
+    routeStep1Desc: 'Dari Jl. Diponegoro (Ungaran), belok masuk ke Jl. Sindoro I (Koordinat -7.117391, 110.412769).',
+    routeStep2Title: 'Langkah 2: Menyusuri Jl. Sindoro I',
+    routeStep2Desc: 'Ikuti jalan aspal Jl. Sindoro I lurus sejauh kurang lebih 100 meter.',
+    routeStep3Title: 'Langkah 3: Tiba di GIA Jemaat Sindoro',
+    routeStep3Desc: 'Belok ke gang kompleks gereja GIA Jemaat Sindoro di sebelah kiri (Koordinat -7.117456, 110.411761).',
+    openMapChannelsBtn: 'Buka Peta Rute MapChannels',
+    openGoogleMapsBtn: 'Buka Rute Google Maps',
 
     // Gift Registry
     registryEyebrow: 'TANDA KASIH',
@@ -97,6 +103,7 @@ export const translations = {
     weddingInvitation: 'WEDDING INVITATION',
     weddingDateFormatted: 'Saturday, 7 November 2026',
     venueLocation: 'GIA Jemaat Sindoro • Ungaran, Semarang',
+    countdownTitle: 'Counting Down to Forever',
     days: 'Days',
     hours: 'Hours',
     minutes: 'Mins',
@@ -127,7 +134,7 @@ export const translations = {
     matrimonyTitle: 'Holy Matrimony',
     matrimonyTime: '10:00 AM - 12:00 PM',
     matrimonyDesc: 'Sacred wedding ceremony and holy matrimony blessing.',
-    attireLabel: 'Attire / Dress Code:',
+    attireLabel: 'Dress Code:',
     matrimonyDressCode: 'Free & Proper Attire (Anything neat and suitable for church)',
 
     receptionTitle: 'Wedding Reception',
@@ -135,25 +142,30 @@ export const translations = {
     receptionDesc: 'Join us for joyous dining, toasts, and celebratory fellowship immediately following the ceremony.',
 
     openMaps: 'Open Google Maps',
+    venueMapLabel: 'Venue Map',
     addToCalendar: 'Add to Calendar',
     venueNotice: 'Note: Guests are welcome to join both the Matrimony and Reception, or attend the Reception directly at 12:00 PM.',
 
-    // Venue Gallery
-    galleryEyebrow: 'LOCATION & DIRECTIONS',
-    galleryTitle: 'Venue Gallery',
-    gallerySubtitle: 'Main street access, turnoff guidance from Jl. Diponegoro / Jl. Sindoro I, and GIA Jemaat Sindoro building views in Ungaran, Semarang.',
+    // Venue Gallery / Route Map
+    galleryEyebrow: 'DIRECTIONS & STREET VIEW',
+    galleryTitle: 'Route Map & Navigation',
+    gallerySubtitle: 'Real interactive Google Street View route navigation from the main street (Jl. Diponegoro) into Jl. Sindoro I leading to GIA Jemaat Sindoro Church.',
     clickToExpand: 'Click to expand',
     photoCount: 'Photo {current} of {total}',
     lightboxNavNotice: 'Use Left / Right arrow buttons to navigate',
 
-    galleryCaptions: [
-      'Main Street Entrance from Jl. Diponegoro into Jl. Sindoro I (Ungaran)',
-      'Street View & Wayfinding Alley leading to GIA Jemaat Sindoro',
-      'GIA Jemaat Sindoro Front Exterior & Main Building Entrance',
-      'Main Sanctuary Hall Interior & Wedding Blessing Altar',
-      'Reception Hall & Fellowship Area',
-      'Spacious Guest Parking & Drop-off Area'
-    ],
+    mapChannelsTab: 'MapChannels Route Map',
+    googleDirectionsTab: 'Google Maps Route',
+    streetViewTab: 'Street View',
+    routeStepsTitle: 'Main Street Route Directions:',
+    routeStep1Title: 'Step 1: Main Street Turnoff',
+    routeStep1Desc: 'From Jl. Diponegoro (Ungaran), turn onto Jl. Sindoro I (Coordinates -7.117391, 110.412769).',
+    routeStep2Title: 'Step 2: Along Jl. Sindoro I',
+    routeStep2Desc: 'Continue straight along paved Jl. Sindoro I for approx. 100 meters.',
+    routeStep3Title: 'Step 3: Arrival at GIA Jemaat Sindoro',
+    routeStep3Desc: 'Turn left into GIA Jemaat Sindoro church complex (Coordinates -7.117456, 110.411761).',
+    openMapChannelsBtn: 'Open MapChannels Route Map',
+    openGoogleMapsBtn: 'Open Google Maps Route',
 
     // Gift Registry
     registryEyebrow: 'GIFTS & BLESSINGS',
