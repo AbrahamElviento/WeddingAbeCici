@@ -166,18 +166,28 @@ export default function App() {
 
   // Guest Personalization State
   const [guestName, setGuestName] = useState<string>('');
+  const [isCharmander, setIsCharmander] = useState<boolean>(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [inputGuestForLink, setInputGuestForLink] = useState('');
   const [isLinkCopied, setIsLinkCopied] = useState(false);
-
-  // Secret key check to reveal link generator ("charmander" case-sensitive)
-  const isCharmander = guestName === 'charmander';
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const name = params.get('to') || params.get('guest') || params.get('n') || params.get('name') || params.get('to_name') || '';
-      if (name) {
+      
+      const hasCharmanderKey = 
+        name === 'charmander' ||
+        params.get('secret') === 'charmander' ||
+        params.get('key') === 'charmander' ||
+        params.get('code') === 'charmander' ||
+        params.has('charmander');
+
+      if (hasCharmanderKey) {
+        setIsCharmander(true);
+      }
+
+      if (name && name !== 'charmander') {
         setGuestName(name.trim());
       }
     }
@@ -345,22 +355,23 @@ export default function App() {
           <span>{lang === 'id' ? 'ID' : 'EN'}</span>
         </button>
 
-        {/* Floating Share Personal Link Generator Widget (Shown if URL parameter is "charmander", or inspect element to reveal) */}
-        <button 
-          onClick={() => {
-            setInputGuestForLink(guestName || '');
-            setShowShareModal(true);
-          }}
-          style={{ display: isCharmander ? 'flex' : 'none' }}
-          className="bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 p-3.5 rounded-full shadow-lg border border-stone-200 dark:border-stone-700 transition-all duration-300 hover:scale-110 flex items-center justify-center group relative cursor-pointer"
-          aria-label="Personalized link generator"
-          id="share-link-toggle"
-        >
-          <span className="absolute bottom-14 left-0 bg-stone-900 text-stone-100 text-xs py-1 px-2.5 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 whitespace-nowrap hidden sm:inline shadow-md">
-            {t.sharePersonalLink}
-          </span>
-          <Share2 className="w-5 h-5 text-amber-600 dark:text-amber-300" />
-        </button>
+        {/* Floating Share Personal Link Generator Widget (Only rendered when secret "charmander" key is present in URL) */}
+        {isCharmander && (
+          <button 
+            onClick={() => {
+              setInputGuestForLink(guestName || '');
+              setShowShareModal(true);
+            }}
+            className="bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 p-3.5 rounded-full shadow-lg border border-stone-200 dark:border-stone-700 transition-all duration-300 hover:scale-110 flex items-center justify-center group relative cursor-pointer"
+            aria-label="Personalized link generator"
+            id="share-link-toggle"
+          >
+            <span className="absolute bottom-14 left-0 bg-stone-900 text-stone-100 text-xs py-1 px-2.5 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 whitespace-nowrap hidden sm:inline shadow-md">
+              {t.sharePersonalLink}
+            </span>
+            <Share2 className="w-5 h-5 text-amber-600 dark:text-amber-300" />
+          </button>
+        )}
       </div>
 
       {/* Sticky Navigation Header */}
@@ -492,20 +503,21 @@ export default function App() {
                   {t.guestInvitationText}
                 </p>
 
-                {/* Personalized Link Generator (Shown if URL parameter is "charmander", or inspect element to reveal) */}
-                <button
-                  type="button"
-                  id="hero-share-link-btn"
-                  onClick={() => {
-                    setInputGuestForLink(guestName || '');
-                    setShowShareModal(true);
-                  }}
-                  style={{ display: isCharmander ? 'inline-flex' : 'none' }}
-                  className="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-200/20 hover:bg-amber-200/30 text-amber-100 text-[11px] font-semibold tracking-wider transition-all duration-300 border border-amber-200/30 cursor-pointer"
-                >
-                  <Share2 className="w-3.5 h-3.5" />
-                  <span>{t.sharePersonalLink}</span>
-                </button>
+                {/* Personalized Link Generator (Only rendered when secret "charmander" key is present) */}
+                {isCharmander && (
+                  <button
+                    type="button"
+                    id="hero-share-link-btn"
+                    onClick={() => {
+                      setInputGuestForLink(guestName || '');
+                      setShowShareModal(true);
+                    }}
+                    className="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-200/20 hover:bg-amber-200/30 text-amber-100 text-[11px] font-semibold tracking-wider transition-all duration-300 border border-amber-200/30 cursor-pointer"
+                  >
+                    <Share2 className="w-3.5 h-3.5" />
+                    <span>{t.sharePersonalLink}</span>
+                  </button>
+                )}
               </div>
             )}
 
