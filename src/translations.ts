@@ -26,10 +26,20 @@ export const translations = {
     switchToLight: 'Mode Terang',
     switchToEn: 'English',
     switchToId: 'Bahasa Indonesia',
+    sharePersonalLink: 'Buat Link Nama Tamu',
+
+    // Guest Personalization
+    dearGuestHeader: 'Kepada Yth. Bapak/Ibu/Saudara/i:',
+    defaultGuestName: 'Tamu Undangan',
+    guestInvitationText: 'Tanpa mengurangi rasa hormat, kami mengundang Anda untuk hadir dan memberikan doa restu di hari bahagia kami.',
+    generatePersonalUrlTitle: 'Buat Link Undangan Nama Tamu',
+    enterGuestNamePlaceholder: 'Tulis Nama Tamu (cth: Bapak Budi & Keluarga)',
+    copyPersonalLinkBtn: 'Salin Link Undangan',
+    personalLinkCopied: 'Link Undangan Tersalin!',
 
     // Couple
     coupleEyebrow: 'DENGAN PENUH SUKACITA',
-    coupleTitle: 'Pasangan Mempelai',
+    coupleTitle: 'Pasangan Mempelai yang Diberkati',
     brideRole: 'Mempelai Wanita',
     groomRole: 'Mempelai Pria',
     brideParents: 'Putri dari Bapak Rohani & Ibu Rini Rumiyati',
@@ -47,7 +57,7 @@ export const translations = {
     matrimonyDressCode: 'Bebas & Rapi (Sopan dan sesuai untuk ibadah gereja)',
 
     receptionTitle: 'Resepsi Pernikahan',
-    receptionTime: '12:00 WIB - 14:00 WIB',
+    receptionTime: '12:00 WIB - 13:00 WIB',
     receptionDesc: 'Ramah tamah dan makan siang bersama merayakan kebahagiaan setelah acara ibadah pemberkatan.',
 
     openMaps: 'Buka Google Maps',
@@ -56,16 +66,16 @@ export const translations = {
     venueNotice: 'Catatan: Tamu diundang untuk menghadiri Pemberkatan & Resepsi, atau langsung hadir pada Resepsi pukul 12:00 WIB.',
 
     // Venue Gallery / Route Map
-    galleryEyebrow: 'PETUNJUK RUTE & STREET VIEW',
+    galleryEyebrow: 'PETUNJUK RUTE & PETA DENAH',
     galleryTitle: 'Peta Rute & Navigasi Lokasi',
-    gallerySubtitle: 'Navigasi rute asli Google Street View dari Jalan Utama (Jl. Diponegoro) masuk ke Jl. Sindoro I menuju Gereja GIA Jemaat Sindoro.',
+    gallerySubtitle: 'Panduan rute Google Maps dan peta denah lokasi menuju Gereja GIA Jemaat Sindoro.',
     clickToExpand: 'Klik untuk memperbesar',
     photoCount: 'Foto {current} dari {total}',
     lightboxNavNotice: 'Gunakan tombol panah Kiri / Kanan untuk navigasi',
 
     mapChannelsTab: 'Peta Rute MapChannels',
     googleDirectionsTab: 'Peta Rute Google Maps',
-    streetViewTab: 'Street View',
+    traditionalMapTab: 'Peta Denah (Traditional Map)',
     routeStepsTitle: 'Panduan Rute Jalan Utama ke Gereja:',
     routeStep1Title: 'Langkah 1: Belokan Jalan Utama',
     routeStep1Desc: 'Dari Jl. Diponegoro (Ungaran), belok masuk ke Jl. Sindoro I (Koordinat -7.117391, 110.412769).',
@@ -75,6 +85,7 @@ export const translations = {
     routeStep3Desc: 'Belok ke gang kompleks gereja GIA Jemaat Sindoro di sebelah kiri (Koordinat -7.117456, 110.411761).',
     openMapChannelsBtn: 'Buka Peta Rute MapChannels',
     openGoogleMapsBtn: 'Buka Rute Google Maps',
+    openTraditionalMapBtn: 'Buka Gambar Peta Denah',
 
     // Gift Registry
     registryEyebrow: 'TANDA KASIH',
@@ -117,10 +128,20 @@ export const translations = {
     switchToLight: 'Switch to Light Mode',
     switchToEn: 'English',
     switchToId: 'Bahasa Indonesia',
+    sharePersonalLink: 'Personal Link Generator',
+
+    // Guest Personalization
+    dearGuestHeader: 'Dear Honorable Guest:',
+    defaultGuestName: 'Honored Guest',
+    guestInvitationText: 'We cordially invite you to share in our joy and celebrate our special day with us.',
+    generatePersonalUrlTitle: 'Personalized Guest Link Generator',
+    enterGuestNamePlaceholder: 'Enter Guest Name (e.g. Mr. John & Family)',
+    copyPersonalLinkBtn: 'Copy Invitation Link',
+    personalLinkCopied: 'Invitation Link Copied!',
 
     // Couple
     coupleEyebrow: 'WITH LOVE & JOY',
-    coupleTitle: 'The Happy Couple',
+    coupleTitle: 'The Blessed Couple',
     brideRole: 'The Bride',
     groomRole: 'The Groom',
     brideParents: 'Daughter of Bapak Rohani & Ibu Rini Rumiyati',
@@ -138,7 +159,7 @@ export const translations = {
     matrimonyDressCode: 'Free & Proper Attire (Anything neat and suitable for church)',
 
     receptionTitle: 'Wedding Reception',
-    receptionTime: '12:00 PM - 02:00 PM',
+    receptionTime: '12:00 PM - 01:00 PM',
     receptionDesc: 'Join us for joyous dining, toasts, and celebratory fellowship immediately following the ceremony.',
 
     openMaps: 'Open Google Maps',
@@ -147,16 +168,16 @@ export const translations = {
     venueNotice: 'Note: Guests are welcome to join both the Matrimony and Reception, or attend the Reception directly at 12:00 PM.',
 
     // Venue Gallery / Route Map
-    galleryEyebrow: 'DIRECTIONS & STREET VIEW',
+    galleryEyebrow: 'DIRECTIONS & TRADITIONAL MAP',
     galleryTitle: 'Route Map & Navigation',
-    gallerySubtitle: 'Real interactive Google Street View route navigation from the main street (Jl. Diponegoro) into Jl. Sindoro I leading to GIA Jemaat Sindoro Church.',
+    gallerySubtitle: 'Google Maps route navigation and traditional venue map to GIA Jemaat Sindoro Church.',
     clickToExpand: 'Click to expand',
     photoCount: 'Photo {current} of {total}',
     lightboxNavNotice: 'Use Left / Right arrow buttons to navigate',
 
     mapChannelsTab: 'MapChannels Route Map',
     googleDirectionsTab: 'Google Maps Route',
-    streetViewTab: 'Street View',
+    traditionalMapTab: 'Traditional Map',
     routeStepsTitle: 'Main Street Route Directions:',
     routeStep1Title: 'Step 1: Main Street Turnoff',
     routeStep1Desc: 'From Jl. Diponegoro (Ungaran), turn onto Jl. Sindoro I (Coordinates -7.117391, 110.412769).',
@@ -166,6 +187,7 @@ export const translations = {
     routeStep3Desc: 'Turn left into GIA Jemaat Sindoro church complex (Coordinates -7.117456, 110.411761).',
     openMapChannelsBtn: 'Open MapChannels Route Map',
     openGoogleMapsBtn: 'Open Google Maps Route',
+    openTraditionalMapBtn: 'Open Traditional Map Image',
 
     // Gift Registry
     registryEyebrow: 'GIFTS & BLESSINGS',

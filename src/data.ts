@@ -28,13 +28,13 @@ export const weddingData = {
     groom: {
       fullName: "Abraham Elwinas",
       nickname: "Abe",
-      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800&h=1000",
+      imageUrl: "/the_couple.jpg",
       parents: "Son of Bapak Budi Wibowo (alm) & Ibu Sayekti Nastiti"
     },
     bride: {
       fullName: "Sara Cici Diajeng Suciati",
       nickname: "Cici",
-      imageUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800&h=1000",
+      imageUrl: "/the_couple.jpg",
       parents: "Daughter of Bapak Rohani & Ibu Rini Rumiyati"
     },
     hashtag: "#CiciAbe2026",
@@ -57,7 +57,7 @@ export const weddingData = {
     {
       id: "sch-2",
       title: "Wedding Reception",
-      time: "12:00 PM - 02:00 PM",
+      time: "12:00 PM - 01:00 PM",
       venue: "GIA Jemaat Sindoro Hall",
       address: "Jl. Sindoro I No.13 A, Cirebonan, Bandarjo, Kec. Ungaran Bar., Kabupaten Semarang, Jawa Tengah 50517",
       gmapsUrl: "https://maps.app.goo.gl/fj1gmYujvgPh9tTX6",
@@ -76,15 +76,15 @@ export const weddingData = {
   registry: [
     {
       id: "reg-1",
-      bankName: "BCA Bank",
-      accountNumber: "8492-2342-12",
-      accountHolder: "Abraham Elwinas"
+      bankName: "Mandiri Bank",
+      accountNumber: "1360037328108",
+      accountHolder: "Cici Diajeng Suciati"
     },
     {
       id: "reg-2",
-      bankName: "Mandiri Bank",
-      accountNumber: "131-00-14892-03",
-      accountHolder: "Sara Cici Diajeng Suciati"
+      bankName: "BCA Bank",
+      accountNumber: "2221601981",
+      accountHolder: "Abraham Elwinas"
     }
   ] as RegistryAccount[]
 };

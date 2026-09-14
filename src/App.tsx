@@ -23,7 +23,9 @@ import {
   ExternalLink,
   Map,
   Smile,
-  Globe
+  Globe,
+  Share2,
+  Link as LinkIcon
 } from 'lucide-react';
 import { weddingData } from './data';
 import { translations, Language } from './translations';
@@ -78,8 +80,8 @@ export default function App() {
   // Music Player Management
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio] = useState(() => {
-    // Elegant, copyright-free instrumental piano background music
-    const aud = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+    // Elegant, premium instrumental of Bella's Lullaby from Twilight (Carter Burwell)
+    const aud = new Audio('https://s3.amazonaws.com/halleonard-audio/04002859.mp3');
     aud.loop = true;
     aud.volume = 0.3;
     return aud;
@@ -137,8 +139,8 @@ export default function App() {
   // Responsive Hamburger Menu
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Route Map & Street View Tab State
-  const [routeTab, setRouteTab] = useState<'google' | 'streetview'>('google');
+  // Route Map & Traditional Map Tab State
+  const [routeTab, setRouteTab] = useState<'google' | 'traditional'>('google');
 
   // Gallery Lightbox State
   const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null);
@@ -161,6 +163,33 @@ export default function App() {
 
   // Copy Clipboard State
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Guest Personalization State
+  const [guestName, setGuestName] = useState<string>('');
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [inputGuestForLink, setInputGuestForLink] = useState('');
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get('to') || params.get('guest') || params.get('n') || params.get('name') || params.get('to_name') || '';
+      if (name) {
+        setGuestName(name.trim());
+      }
+    }
+  }, []);
+
+  const handleCopyPersonalLink = () => {
+    if (typeof window !== 'undefined') {
+      const baseUrl = window.location.origin + window.location.pathname;
+      const targetName = inputGuestForLink.trim() || guestName || 'Tamu Undangan';
+      const personalUrl = `${baseUrl}?to=${encodeURIComponent(targetName)}`;
+      navigator.clipboard.writeText(personalUrl);
+      setIsLinkCopied(true);
+      setTimeout(() => setIsLinkCopied(false), 3000);
+    }
+  };
 
   const handleCopyAccount = (id: string, text: string) => {
     navigator.clipboard.writeText(text);
@@ -312,6 +341,23 @@ export default function App() {
           <Globe className="w-4 h-4 text-[#556B2F] dark:text-[#A9DFBF]" />
           <span>{lang === 'id' ? 'ID' : 'EN'}</span>
         </button>
+
+        {/* Floating Share Personal Link Generator Widget (Hidden by default - inspect element and change display to flex to reveal) */}
+        <button 
+          onClick={() => {
+            setInputGuestForLink(guestName || '');
+            setShowShareModal(true);
+          }}
+          style={{ display: 'none' }}
+          className="bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 p-3.5 rounded-full shadow-lg border border-stone-200 dark:border-stone-700 transition-all duration-300 hover:scale-110 flex items-center justify-center group relative cursor-pointer"
+          aria-label="Personalized link generator (Hidden - Inspect Element to enable)"
+          id="share-link-toggle"
+        >
+          <span className="absolute bottom-14 left-0 bg-stone-900 text-stone-100 text-xs py-1 px-2.5 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 whitespace-nowrap hidden sm:inline shadow-md">
+            {t.sharePersonalLink}
+          </span>
+          <Share2 className="w-5 h-5 text-amber-600 dark:text-amber-300" />
+        </button>
       </div>
 
       {/* Sticky Navigation Header */}
@@ -393,9 +439,9 @@ export default function App() {
           {/* Parallax Background Cover with Dark Overlay */}
           <div className="absolute inset-0 z-0">
             <img 
-              src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1920" 
-              alt="Romantic wedding forest backdrop" 
-              className="w-full h-full object-cover select-none scale-105 pointer-events-none"
+              src="/the_couple.jpg" 
+              alt="Abraham & Cici" 
+              className="w-full h-full object-cover object-center select-none scale-105 pointer-events-none"
             />
             {/* Elegant overlay to handle both dark and light modes cleanly */}
             <div className="absolute inset-0 bg-stone-900/60 dark:bg-stone-950/75 backdrop-blur-[1px]" />
@@ -430,49 +476,42 @@ export default function App() {
               {t.venueLocation}
             </p>
 
-            {/* Google Map Card below Location right before Countdown */}
-            <div className="mt-6 mb-8 max-w-xl mx-auto px-2">
-              <div className="bg-white/10 dark:bg-black/40 backdrop-blur-md rounded-2xl p-4 md:p-5 border border-white/15 dark:border-white/10 shadow-xl">
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-left mb-3">
-                  <div className="text-center sm:text-left">
-                    <p className="font-sans text-xs uppercase tracking-widest text-amber-200 font-semibold flex items-center justify-center sm:justify-start gap-1">
-                      <MapPin className="w-3.5 h-3.5" /> {t.venueMapLabel}
-                    </p>
-                    <p className="font-serif text-base text-white font-medium mt-0.5">{weddingData.couple.venueName}</p>
-                    <p className="font-sans text-[11px] text-stone-200/90 line-clamp-1">{weddingData.couple.venueAddress}</p>
-                  </div>
-                  <a 
-                    href={weddingData.schedule[0].gmapsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-200/90 hover:bg-amber-100 text-stone-900 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow hover:scale-105 shrink-0"
-                  >
-                    <Map className="w-3.5 h-3.5" />
-                    {t.openMaps}
-                  </a>
-                </div>
+            {/* Personalized Guest Invitation Card (Only rendered when guestName parameter exists in URL) */}
+            {guestName && (
+              <div className="mt-8 max-w-lg mx-auto px-6 py-5 bg-stone-900/40 dark:bg-black/50 backdrop-blur-md rounded-2xl border border-white/20 dark:border-white/15 shadow-2xl text-center animate-fade-in">
+                <p className="font-sans text-[11px] uppercase tracking-widest text-amber-200 font-semibold">
+                  {t.dearGuestHeader}
+                </p>
+                <h3 className="font-serif text-2xl sm:text-3xl text-white font-semibold my-1.5 drop-shadow-sm">
+                  {guestName}
+                </h3>
+                <p className="font-sans text-xs text-stone-200/90 leading-relaxed font-light">
+                  {t.guestInvitationText}
+                </p>
 
-                {/* Embedded Map Frame */}
-                <div className="w-full h-44 sm:h-52 rounded-xl overflow-hidden border border-white/20 shadow-inner relative bg-stone-900/50">
-                  <iframe 
-                    title="GIA Jemaat Sindoro Location Map"
-                    src="https://maps.google.com/maps?q=GIA+Jemaat+Sindoro+Jl.+Sindoro+I+No.13+A,+Ungaran,+Kabupaten+Semarang&t=&z=16&ie=UTF8&iwloc=&output=embed" 
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0 }} 
-                    allowFullScreen={false} 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="w-full h-full grayscale-[0.2] contrast-[1.05]"
-                  />
-                </div>
+                {/* Personalized Link Generator (Hidden by default - inspect element and change display to inline-flex to reveal) */}
+                <button
+                  type="button"
+                  id="hero-share-link-btn"
+                  onClick={() => {
+                    setInputGuestForLink(guestName || '');
+                    setShowShareModal(true);
+                  }}
+                  style={{ display: 'none' }}
+                  className="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-200/20 hover:bg-amber-200/30 text-amber-100 text-[11px] font-semibold tracking-wider transition-all duration-300 border border-amber-200/30 cursor-pointer"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>{t.sharePersonalLink}</span>
+                </button>
               </div>
-            </div>
+            )}
+
+
           </div>
 
           {/* Hero Bottom: Animated Live Countdown Clock Panel */}
           <div 
-            className="relative z-10 w-full max-w-3xl animate-fade-in" 
+            className="relative z-10 w-full max-w-3xl animate-fade-in mt-8 sm:mt-10" 
             style={{ animationDelay: '400ms' }}
           >
             <div className="bg-white/10 dark:bg-black/40 backdrop-blur-md rounded-2xl px-6 py-6 md:px-10 md:py-8 border border-white/15 dark:border-white/5 shadow-2xl max-w-xl mx-auto">
@@ -687,11 +726,12 @@ export default function App() {
 
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 text-center">
+                {/* Hidden venue notice as requested */}
+                {/* <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 text-center">
                   <p className="font-sans text-xs text-stone-500 dark:text-stone-400 italic">
                     {t.venueNotice}
                   </p>
-                </div>
+                </div> */}
               </div>
 
             </div>
@@ -736,19 +776,19 @@ export default function App() {
 
                 <button
                   type="button"
-                  onClick={() => setRouteTab('streetview')}
+                  onClick={() => setRouteTab('traditional')}
                   className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                    routeTab === 'streetview'
+                    routeTab === 'traditional'
                       ? 'bg-[#556B2F] text-white dark:bg-[#A9DFBF] dark:text-stone-950 shadow-xs'
                       : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
                   }`}
                 >
-                  <Camera className="w-4 h-4" />
-                  {t.streetViewTab}
+                  <Map className="w-4 h-4" />
+                  {t.traditionalMapTab}
                 </button>
               </div>
 
-              {/* Responsive Embedded IFrame Container */}
+              {/* Responsive Embedded Viewer Container */}
               <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] md:aspect-[21/9] min-h-[380px] sm:min-h-[460px] rounded-xl overflow-hidden border border-stone-200/80 dark:border-stone-800 bg-stone-100 dark:bg-stone-900 shadow-inner">
                 {routeTab === 'google' && (
                   <iframe
@@ -760,14 +800,14 @@ export default function App() {
                   />
                 )}
 
-                {routeTab === 'streetview' && (
-                  <iframe
-                    title="Google Street View"
-                    src={weddingData.route.googleStreetViewEmbedUrl}
-                    className="w-full h-full border-0"
-                    loading="lazy"
-                    allowFullScreen
-                  />
+                {routeTab === 'traditional' && (
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-stone-900/10 dark:bg-stone-950/40 p-2 sm:p-4 overflow-auto">
+                    <img 
+                      src="/maps.jpg" 
+                      alt="Peta Denah Traditional Map"
+                      className="max-w-full max-h-full object-contain rounded-lg shadow-md border border-stone-200/60 dark:border-stone-800 transition-transform duration-300 hover:scale-[1.01]"
+                    />
+                  </div>
                 )}
               </div>
 
@@ -798,22 +838,22 @@ export default function App() {
                 {/* External Action Buttons */}
                 <div className="mt-6 pt-4 border-t border-stone-200/60 dark:border-stone-800/80 flex flex-wrap items-center justify-center gap-3">
                   <a
-                    href={weddingData.route.mapChannelsUrl}
+                    href="/maps.jpg"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#556B2F] hover:bg-[#435525] dark:bg-[#A9DFBF] dark:hover:bg-[#8EC5A2] text-white dark:text-stone-950 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-900 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-100 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105"
                   >
-                    <ExternalLink className="w-4 h-4" />
-                    {t.openMapChannelsBtn}
+                    <Map className="w-4 h-4" />
+                    {t.openTraditionalMapBtn}
                   </a>
 
                   <a
                     href={weddingData.route.googleMapsDirectionsUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-900 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-100 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#556B2F] hover:bg-[#435525] dark:bg-[#A9DFBF] dark:hover:bg-[#8EC5A2] text-white dark:text-stone-950 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105"
                   >
-                    <Map className="w-4 h-4" />
+                    <ExternalLink className="w-4 h-4" />
                     {t.openGoogleMapsBtn}
                   </a>
                 </div>
@@ -1228,6 +1268,70 @@ export default function App() {
             <p className="font-sans text-[10px] uppercase tracking-widest text-stone-500 mt-1">{t.lightboxNavNotice}</p>
           </div>
 
+        </div>
+      )}
+
+      {/* Share / Personalized Link Generator Modal */}
+      {showShareModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in" id="share-link-modal">
+          <div className="bg-white dark:bg-[#181a19] rounded-2xl border border-stone-200 dark:border-stone-800 p-6 sm:p-8 max-w-md w-full shadow-2xl relative">
+            <button
+              onClick={() => setShowShareModal(false)}
+              className="absolute top-4 right-4 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 p-1.5 rounded-lg cursor-pointer"
+              aria-label="Close share modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-2 mb-2 text-[#556B2F] dark:text-[#A9DFBF]">
+              <Share2 className="w-5 h-5" />
+              <h3 className="font-serif text-lg font-bold text-stone-800 dark:text-stone-100">
+                {t.generatePersonalUrlTitle}
+              </h3>
+            </div>
+
+            <p className="font-sans text-xs text-stone-500 dark:text-stone-400 mb-5 leading-relaxed">
+              Tuliskan nama tamu undangan Anda. Link yang dihasilkan akan otomatis menampilkan nama beliau secara eksklusif di beranda undangan.
+            </p>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block font-sans text-xs font-semibold text-stone-600 dark:text-stone-300 mb-1.5 uppercase tracking-wider">
+                  Nama Tamu Undangan
+                </label>
+                <input
+                  type="text"
+                  value={inputGuestForLink}
+                  onChange={(e) => setInputGuestForLink(e.target.value)}
+                  placeholder={t.enterGuestNamePlaceholder}
+                  className="w-full px-4 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 text-stone-800 dark:text-stone-100 text-sm focus:outline-hidden focus:ring-2 focus:ring-[#556B2F]"
+                />
+              </div>
+
+              {/* Preview Link Box */}
+              <div className="p-3 bg-stone-100 dark:bg-stone-900 rounded-xl border border-stone-200/60 dark:border-stone-800 text-[11px] text-stone-600 dark:text-stone-400 font-mono break-all leading-tight">
+                {typeof window !== 'undefined' && `${window.location.origin}${window.location.pathname}?to=${encodeURIComponent(inputGuestForLink.trim() || 'Tamu Undangan')}`}
+              </div>
+
+              <button
+                type="button"
+                onClick={handleCopyPersonalLink}
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#556B2F] hover:bg-[#435525] dark:bg-[#A9DFBF] dark:hover:bg-[#8EC5A2] text-white dark:text-stone-950 font-sans text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer"
+              >
+                {isLinkCopied ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-300 dark:text-emerald-800" />
+                    <span>{t.personalLinkCopied}</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    <span>{t.copyPersonalLinkBtn}</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
