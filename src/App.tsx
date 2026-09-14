@@ -439,7 +439,7 @@ export default function App() {
           {/* Parallax Background Cover with Dark Overlay */}
           <div className="absolute inset-0 z-0">
             <img 
-              src="/the_couple.jpg" 
+              src="./the_couple.jpg" 
               alt="Abraham & Cici" 
               className="w-full h-full object-cover object-center select-none scale-105 pointer-events-none"
             />
@@ -803,7 +803,7 @@ export default function App() {
                 {routeTab === 'traditional' && (
                   <div className="w-full h-full flex flex-col items-center justify-center bg-stone-900/10 dark:bg-stone-950/40 p-2 sm:p-4 overflow-auto">
                     <img 
-                      src="/maps.jpg" 
+                      src="./maps.jpg" 
                       alt="Peta Denah Traditional Map"
                       className="max-w-full max-h-full object-contain rounded-lg shadow-md border border-stone-200/60 dark:border-stone-800 transition-transform duration-300 hover:scale-[1.01]"
                     />
@@ -838,7 +838,7 @@ export default function App() {
                 {/* External Action Buttons */}
                 <div className="mt-6 pt-4 border-t border-stone-200/60 dark:border-stone-800/80 flex flex-wrap items-center justify-center gap-3">
                   <a
-                    href="/maps.jpg"
+                    href="./maps.jpg"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-900 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-100 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm hover:scale-105"

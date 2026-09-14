@@ -28,13 +28,13 @@ export const weddingData = {
     groom: {
       fullName: "Abraham Elwinas",
       nickname: "Abe",
-      imageUrl: "/the_couple.jpg",
+      imageUrl: "./the_couple.jpg",
       parents: "Son of Bapak Budi Wibowo (alm) & Ibu Sayekti Nastiti"
     },
     bride: {
       fullName: "Sara Cici Diajeng Suciati",
       nickname: "Cici",
-      imageUrl: "/the_couple.jpg",
+      imageUrl: "./the_couple.jpg",
       parents: "Daughter of Bapak Rohani & Ibu Rini Rumiyati"
     },
     hashtag: "#CiciAbe2026",
